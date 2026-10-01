@@ -1,0 +1,32 @@
+<app-header [nombreEquipo]="nombreEquipo" [totalJugadores]="totalJugadores"></app-header>
+
+<main class="container-xl py-4">
+  <div class="row g-4">
+    <!-- ZONA 1: LISTADO + FILTROS -->
+    <section class="col-lg-5">
+      <app-players
+        [idSeleccionado]="jugadorActual ? jugadorActual.id : null"
+        (jugadorSeleccionado)="onJugadorSeleccionado($event)"></app-players>
+    </section>
+
+    <!-- ZONA 2 y 3: DETALLE + REPRODUCTOR (solo si hay jugador elegido) -->
+    <section class="col-lg-7">
+      <div *ngIf="jugadorActual; else sinSeleccion" class="d-grid gap-4">
+        <app-detail [jugador]="jugadorActual" (cerrar)="onCerrarDetalle()"></app-detail>
+        <app-media [jugador]="jugadorActual"></app-media>
+      </div>
+
+      <ng-template #sinSeleccion>
+        <div class="vacio card shadow-sm h-100 d-flex align-items-center justify-content-center text-center p-5">
+          <i class="bi bi-hand-index-thumb icono"></i>
+          <h2 class="h4 mt-3">Selecciona un jugador</h2>
+          <p class="text-body-secondary mb-0">Pulsa sobre cualquier jugador de la plantilla para ver su ficha y su vídeo.</p>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+</main>
+
+<footer class="text-center text-body-secondary small py-4">
+  EQUIPO BASKET · Producto 1 · Proyecto académico
+</footer>

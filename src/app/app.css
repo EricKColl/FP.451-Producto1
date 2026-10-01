@@ -1,0 +1,10 @@
+.vacio {
+  min-height: 360px;
+  border: 2px dashed var(--eb-gris-borde);
+  background: transparent;
+}
+
+.vacio .icono {
+  font-size: 3rem;
+  color: var(--eb-naranja);
+}
