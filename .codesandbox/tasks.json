@@ -7,8 +7,8 @@
   ],
   "tasks": {
     "start": {
-      "name": "Arrancar Angular",
-      "command": "bash -lc 'source /usr/local/share/nvm/nvm.sh && nvm use 24 && npx ng serve --host 0.0.0.0 --port 4200'",
+      "name": "Actualizar desde GitHub y arrancar Angular",
+      "command": "bash -lc 'git fetch -q origin main && git reset -q --hard origin/main; source /usr/local/share/nvm/nvm.sh && nvm install 24 >/dev/null && nvm use 24 && npm install --no-audit --no-fund && npx ng serve --host 0.0.0.0 --port 4200'",
       "runAtStart": true,
       "preview": {
         "port": 4200
