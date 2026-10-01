@@ -13,7 +13,8 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 
 ## Enlaces
 
-- CodeSandbox: _pendiente_
+- CodeSandbox (editor): https://codesandbox.io/p/devbox/jq68p5
+- CodeSandbox (web funcionando): https://jq68p5-4200.csb.app
 - Trello: _pendiente_
 - Figma (mockup): _pendiente_
 
