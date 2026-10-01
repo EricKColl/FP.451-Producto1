@@ -6,10 +6,10 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 
 | Persona | Rol | Nombre |
 |---|---|---|
-| Persona 1 | Coordinación técnica e integración | _pendiente_ |
-| Persona 2 | Datos + listado (PlayersComponent) | _pendiente_ |
-| Persona 3 | Detalle (DetailComponent) + pipe de filtros | _pendiente_ |
-| Persona 4 | Reproductor (MediaComponent) + multimedia | _pendiente_ |
+| Persona 1 | Coordinación técnica e integración | Erick Coll Rodríguez |
+| Persona 2 | Datos + listado (PlayersComponent) + arquetipos | Jacobo Barrera Toba |
+| Persona 3 | Detalle (DetailComponent) + pipe de filtros + mockup | Marc Pérez Rodríguez |
+| Persona 4 | Reproductor (MediaComponent) + multimedia + documentación | Carles Miguel Millán |
 
 ## Enlaces
 
@@ -17,6 +17,19 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 - CodeSandbox (web funcionando): https://jq68p5-4200.csb.app
 - Trello: _pendiente_
 - Figma (mockup): _pendiente_
+
+## Ramas
+
+| Rama | Uso |
+|---|---|
+| `main` | Versión estable y entregable. Solo recibe cambios desde `develop`. |
+| `develop` | Integración. Aquí se unen las ramas de cada integrante mediante Pull Request. |
+| `feature/erick-coll` | Trabajo de Erick |
+| `feature/jacobo-barrera` | Trabajo de Jacobo |
+| `feature/marc-perez` | Trabajo de Marc |
+| `feature/carles-miguel` | Trabajo de Carles |
+
+Flujo: cada uno trabaja en su rama → Pull Request a `develop` → cuando `develop` está probado, Pull Request de `develop` a `main`.
 
 ## Cómo arrancarlo
 
