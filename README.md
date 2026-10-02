@@ -13,8 +13,8 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 
 ## Enlaces
 
-- CodeSandbox (editor): https://codesandbox.io/p/devbox/jq68p5
-- CodeSandbox (web funcionando): https://jq68p5-4200.csb.app
+- **Proyecto funcionando (StackBlitz):** https://stackblitz.com/github/EricKColl/FP.451-Producto1/tree/main
+  Compila el proyecto en el navegador a partir de la rama `main` (siempre la última versión). No necesita cuenta; la primera carga tarda 1-2 minutos.
 - Trello: _pendiente_
 - Figma (mockup): _pendiente_
 
@@ -41,6 +41,8 @@ ng serve -o
 ```
 
 Se abre en http://localhost:4200
+
+> No uses la extensión **Live Server** de VS Code: la página saldría en blanco porque Angular necesita compilarse. Arráncalo siempre con `ng serve` (o `npm start`).
 
 ## Tecnologías
 
