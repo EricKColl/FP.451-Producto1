@@ -40,7 +40,7 @@ npm install
 ng serve -o
 ```
 
-Se abre en http://localhost:4200
+Se abre en http://localhost:4200.
 
 > No uses la extensión **Live Server** de VS Code: la página saldría en blanco porque Angular necesita compilarse. Arráncalo siempre con `ng serve` (o `npm start`).
 
