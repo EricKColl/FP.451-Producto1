@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arquetipos de usuario | EQUIPO BASKET</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px; background: #e6e9ed; color: #242a32; font-family: Arial, sans-serif; }
+    .ficha { max-width: 1000px; margin: 0 auto 32px; background: #fff; border-top: 8px solid var(--acento); }
+    .laura { --acento: #bd431e; --suave: #fff2ec; }
+    .carlos { --acento: #147164; --suave: #eaf6f2; }
+    header { padding: 32px 40px; border-bottom: 1px solid #dce1e6; }
+    .marca { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; font-weight: bold; color: #59616b; }
+    .identidad { display: flex; align-items: center; gap: 24px; margin-top: 28px; }
+    .avatar { display: grid; place-items: center; width: 96px; height: 96px; flex-shrink: 0; border-radius: 50%; background: var(--suave); color: var(--acento); font-size: 34px; font-weight: bold; }
+    h1 { font-size: 36px; margin: 0 0 8px; }
+    .rol { margin: 0; font-size: 20px; color: var(--acento); font-weight: bold; }
+    .datos { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 24px 0 0; font-size: 16px; }
+    .contenido { padding: 28px 40px 32px; }
+    h2 { margin: 0 0 12px; font-size: 19px; }
+    p, li { font-size: 16px; line-height: 1.55; }
+    p { margin: 0; }
+    blockquote { margin: 24px 0; border-left: 4px solid var(--acento); padding: 16px 20px; background: var(--suave); font-size: 21px; line-height: 1.4; }
+    .columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 26px; }
+    ul { padding-left: 20px; margin: 0; }
+    li + li { margin-top: 6px; }
+    .escenario { padding-top: 22px; border-top: 1px solid #dce1e6; }
+    .diseno { margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.45; }
+    th { text-align: left; background: var(--suave); }
+    th, td { padding: 10px 12px; border-bottom: 1px solid #dce1e6; vertical-align: top; }
+    th:first-child, td:first-child { width: 39%; }
+    footer { padding: 20px 40px; background: #f3f5f7; color: #59616b; font-size: 13px; line-height: 1.5; }
+    footer p { font-size: inherit; }
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      header, .contenido, footer { padding: 24px; }
+      .marca { flex-direction: column; gap: 6px; }
+      .identidad { gap: 16px; }
+      .avatar { width: 64px; height: 64px; font-size: 24px; }
+      h1 { font-size: 28px; }
+      .rol { font-size: 17px; }
+      .columnas { grid-template-columns: 1fr; gap: 24px; }
+      blockquote { font-size: 18px; }
+      th, td { padding: 8px; overflow-wrap: anywhere; }
+    }
+    @media print {
+      body { padding: 0; background: white; }
+      .ficha { margin: 0; break-after: page; }
+      .ficha:last-child { break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <article class="ficha laura" id="laura" aria-labelledby="nombre-laura">
+    <header>
+      <div class="marca"><span>EQUIPO BASKET / PRODUCTO 1</span><span>ARQUETIPO 01 · PERFIL FICTICIO</span></div>
+      <div class="identidad"><div class="avatar" aria-hidden="true">LM</div><div><h1 id="nombre-laura">Laura Martín</h1><p class="rol">Aficionada al baloncesto</p></div></div>
+      <div class="datos"><span><strong>Edad:</strong> 42 años</span><span><strong>Dispositivo:</strong> móvil</span><span><strong>Nivel digital:</strong> básico-intermedio</span></div>
+    </header>
+    <div class="contenido">
+      <h2>Quién es</h2>
+      <p>Administrativa y socia de un club local. Comparte con su familia la afición por la NBA. Conoce a los jugadores más populares y busca una forma sencilla de consultar sus características y descubrir sus jugadas. Utiliza aplicaciones y webs habitualmente, sin conocimientos técnicos.</p>
+      <blockquote>“Quiero encontrar al jugador y ver sus jugadas sin perderme entre menús”.</blockquote>
+      <div class="columnas">
+        <section><h2>Objetivos</h2><ul><li>Reconocer a los jugadores por su fotografía.</li><li>Consultar su posición y sus datos históricos.</li><li>Ver vídeos de sus jugadas.</li></ul></section>
+        <section><h2>Frustraciones</h2><ul><li>Menús complicados que dificultan la consulta.</li><li>Texto demasiado pequeño en el móvil.</li><li>No identificar qué jugador está seleccionado.</li></ul></section>
+      </div>
+      <section class="escenario"><h2>Escenario de uso</h2><p>Durante una conversación sobre la NBA, abre la aplicación en el móvil, localiza a Stephen Curry por su nombre o fotografía y selecciona su ficha para consultar los datos y reproducir un vídeo.</p></section>
+      <section class="diseno"><h2>Qué orienta en el diseño</h2><table><thead><tr><th>Necesidad</th><th>Respuesta de diseño</th></tr></thead><tbody>
+        <tr><td>Reconocer y localizar</td><td>Foto, nombre completo y búsqueda por nombre o apellidos.</td></tr>
+        <tr><td>Saber qué ficha está abierta</td><td>Resaltado de la selección con fondo y borde.</td></tr>
+        <tr><td>Consultar desde el móvil</td><td>Distribución adaptable y nombres legibles.</td></tr>
+        <tr><td>Interpretar datos históricos</td><td>Temporada de referencia indicada en la descripción.</td></tr>
+      </tbody></table></section>
+    </div>
+    <footer><p><strong>Hipótesis de diseño:</strong> persona y cita ficticias; no se han realizado entrevistas ni encuestas. Las necesidades se refieren al producto completo, no certifican funciones ya integradas.</p><p>Autor: Jacobo Barrera Toba · Avatar tipográfico original de iniciales, sin fotografía externa.</p></footer>
+  </article>
+  <article class="ficha carlos" id="carlos" aria-labelledby="nombre-carlos">
+    <header>
+      <div class="marca"><span>EQUIPO BASKET / PRODUCTO 1</span><span>ARQUETIPO 02 · PERFIL FICTICIO</span></div>
+      <div class="identidad"><div class="avatar" aria-hidden="true">CR</div><div><h1 id="nombre-carlos">Carlos Rius</h1><p class="rol">Entrenador de formación</p></div></div>
+      <div class="datos"><span><strong>Edad:</strong> 35 años</span><span><strong>Dispositivo:</strong> portátil</span><span><strong>Nivel digital:</strong> intermedio</span></div>
+    </header>
+    <div class="contenido">
+      <h2>Quién es</h2>
+      <p>Entrenador de un equipo juvenil de un club local. Utiliza ejemplos profesionales para explicar movimientos y funciones de cada posición. Consulta referencias históricas al preparar sesiones. Trabaja con herramientas ofimáticas, vídeos y webs; utiliza el móvil para consultas puntuales.</p>
+      <blockquote>“Necesito pasar de un jugador a otro y revisar las jugadas con calma”.</blockquote>
+      <div class="columnas">
+        <section><h2>Objetivos</h2><ul><li>Localizar jugadores por posición.</li><li>Revisar sus estadísticas de referencia.</li><li>Reproducir jugadas como ejemplos para entrenar.</li></ul></section>
+        <section><h2>Frustraciones</h2><ul><li>Perder la lista al abrir una ficha.</li><li>Filtros difíciles de restablecer.</li><li>No poder pausar o volver a una jugada.</li></ul></section>
+      </div>
+      <section class="escenario"><h2>Escenario de uso</h2><p>Prepara una sesión sobre el juego de los pívots. Filtra por posición y selecciona a Dwight Howard; consulta su ficha y revisa una jugada con los controles del vídeo. Después selecciona a Shaquille O'Neal como otro ejemplo.</p></section>
+      <section class="diseno"><h2>Qué orienta en el diseño</h2><table><thead><tr><th>Necesidad</th><th>Respuesta de diseño</th></tr></thead><tbody>
+        <tr><td>Acotar la selección histórica</td><td>Filtros de texto, posición y edad de referencia.</td></tr>
+        <tr><td>Volver al listado completo</td><td>Botón para limpiar filtros.</td></tr>
+        <tr><td>Consultar jugadores sucesivamente</td><td>Lista junto a la ficha en escritorio.</td></tr>
+        <tr><td>Revisar una jugada</td><td>Controles de pausa y desplazamiento del vídeo.</td></tr>
+      </tbody></table></section>
+    </div>
+    <footer><p><strong>Hipótesis de diseño:</strong> persona y cita ficticias; no se han realizado entrevistas ni encuestas. Las necesidades se refieren al producto completo, no certifican funciones ya integradas.</p><p>Autor: Jacobo Barrera Toba · Avatar tipográfico original de iniciales, sin fotografía externa.</p></footer>
+  </article>
+</body>
+</html>

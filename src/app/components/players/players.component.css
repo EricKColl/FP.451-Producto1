@@ -1,0 +1,43 @@
+.jugador {
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-left: 4px solid transparent;
+  background: transparent;
+  color: inherit;
+}
+
+.jugador:hover {
+  background: var(--eb-gris-claro);
+}
+
+.jugador.seleccionado {
+  background: var(--eb-naranja-suave);
+  border-left-color: var(--eb-naranja);
+}
+
+.jugador:focus-visible {
+  outline: 2px solid var(--eb-naranja);
+  outline-offset: -2px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--eb-gris-claro);
+}
+
+.iniciales {
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: var(--eb-gris-texto);
+}
+
+.datos-jugador {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
