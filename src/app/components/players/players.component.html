@@ -1,16 +1,61 @@
 <h2 class="h5 mb-3">Plantilla · {{ jugadores.length }} jugadores</h2>
 
+<div class="row g-2 mb-3">
+  <div class="col-12">
+    <label for="buscar-jugador" class="form-label">Buscar jugador</label>
+    <input id="buscar-jugador" type="search" class="form-control"
+      placeholder="Nombre o apellidos" [(ngModel)]="textoBusqueda" />
+  </div>
+  <div class="col-sm-6">
+    <label for="filtrar-posicion" class="form-label">Posición</label>
+    <select id="filtrar-posicion" class="form-select" [(ngModel)]="posicionSeleccionada">
+      <option value="">Todas las posiciones</option>
+      <option *ngFor="let posicion of posiciones" [value]="posicion">{{ posicion }}</option>
+    </select>
+  </div>
+  <div class="col-sm-6">
+    <label for="filtrar-edad" class="form-label">Edad de referencia</label>
+    <select id="filtrar-edad" class="form-select" [(ngModel)]="rangoEdad">
+      <option value="">Todas las edades</option>
+      <option value="sub23">Menores de 23</option>
+      <option value="23-29">De 23 a 29</option>
+      <option value="30+">30 o más</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="limpiarFiltros()">
+      <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Limpiar filtros
+    </button>
+  </div>
+</div>
+
 <ul class="list-group">
-  <li *ngFor="let jugador of jugadores" class="list-group-item">
-    <div class="d-flex justify-content-between align-items-start gap-3">
-      <div>
-        <strong>{{ jugador.nombre }} {{ jugador.apellidos }}</strong>
-        <p class="small text-body-secondary mb-0">
-          {{ jugador.posicion }} · {{ jugador.edad }} años · {{ jugador.altura }} m
-        </p>
+  <li *ngFor="let jugador of jugadores" class="list-group-item p-0">
+    <button
+      type="button"
+      class="jugador w-100 text-start"
+      [class.seleccionado]="jugador.id === idSeleccionado"
+      [attr.aria-pressed]="jugador.id === idSeleccionado"
+      (click)="seleccionar(jugador)">
+      <div class="d-flex align-items-center gap-3">
+        <img *ngIf="!fotosNoDisponibles.has(jugador.id); else iniciales"
+          [src]="jugador.foto" [alt]="'Foto de ' + jugador.nombre + ' ' + jugador.apellidos"
+          class="avatar" width="48" height="48"
+          (error)="marcarFotoNoDisponible(jugador.id)" />
+        <ng-template #iniciales>
+          <span class="avatar iniciales" aria-hidden="true">
+            {{ jugador.nombre.charAt(0) }}{{ jugador.apellidos.charAt(0) }}
+          </span>
+        </ng-template>
+        <div class="datos-jugador flex-grow-1">
+          <strong>{{ jugador.nombre }} {{ jugador.apellidos }}</strong>
+          <p class="small text-body-secondary mb-0">
+            {{ jugador.posicion }} · {{ jugador.edad }} años · {{ jugador.altura }} m
+          </p>
+        </div>
+        <span class="fw-semibold">#{{ jugador.dorsal }}</span>
       </div>
-      <span class="fw-semibold">#{{ jugador.dorsal }}</span>
-    </div>
+    </button>
   </li>
 </ul>
 
