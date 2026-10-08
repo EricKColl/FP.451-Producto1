@@ -49,3 +49,7 @@ Se abre en http://localhost:4200.
 - Angular 22 (componentes standalone, `*ngFor`, `*ngIf`, `@Input`, `@Output`, pipe propio)
 - Bootstrap 5.3.8 + Bootstrap Icons
 - Tipografías Oswald e Inter (Google Fonts)
+
+## Créditos
+
+Las fotografías de los jugadores proceden de Wikimedia Commons. Sus autores y licencias están en [`public/assets/img/jugadores/creditos.html`](public/assets/img/jugadores/creditos.html), que también se abre desde el enlace "Créditos de fotografías" del listado.
