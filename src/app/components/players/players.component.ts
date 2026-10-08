@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Jugador, POSICIONES } from '../../models/jugador.model';
 import { JUGADORES } from '../../data/jugadores.data';
 
 @Component({
   selector: 'app-players',
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [NgFor, NgIf, DecimalPipe, FormsModule],
   templateUrl: './players.component.html',
   styleUrl: './players.component.css',
   changeDetection: ChangeDetectionStrategy.Eager,
