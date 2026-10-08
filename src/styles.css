@@ -4,10 +4,10 @@
    Nadie más que Persona 1 toca este archivo.
    ========================================================= */
 :root {
-  --eb-naranja: #f2711c;        /* color principal (balón) */
+  --eb-naranja: #f2711c; /* color principal (balón) */
   --eb-naranja-oscuro: #c75510;
-  --eb-naranja-suave: #fff1e6;  /* fondo del jugador seleccionado */
-  --eb-oscuro: #1b2433;         /* azul noche (cabecera) */
+  --eb-naranja-suave: #fff1e6; /* fondo del jugador seleccionado */
+  --eb-oscuro: #1b2433; /* azul noche (cabecera) */
   --eb-gris-claro: #f3f4f6;
   --eb-gris-borde: #d6d9de;
   --eb-gris-texto: #5f6b7a;
@@ -21,6 +21,9 @@ body {
   color: #1f2937;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--eb-fuente-titulos);
 }
