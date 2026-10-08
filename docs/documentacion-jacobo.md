@@ -222,8 +222,26 @@ Estos son resultados esperados para la integración; no se presentan como prueba
 - Fotografías verificadas: diez JPEG válidos de menos de 150 KB cada uno, con revisión visual y atribuciones contrastadas en Commons.
 - Pruebas manuales comunicadas por Jacobo: funcionamiento de la interfaz, carga de fotos y revisión en vista móvil y escritorio. El tamaño aparente en Chrome se corrigió al restablecer el zoom.
 - Pendiente en la versión integrada: filtrado combinado, mensaje sin resultados por filtrado, cierre del detalle, reproducción de los diez vídeos y comprobación online en StackBlitz.
-- Capturas pendientes: listado completo en escritorio, jugador seleccionado, vista móvil y controles antes/después de limpiar. Añadir capturas de filtrado después de integrar el pipe; no presentar controles sin conectar como filtros funcionales.
+- Capturas incorporadas: vista parcial del listado con Stephen Curry seleccionado y simulación móvil de 375 por 667 píxeles en Chrome. Pendientes: listado completo en escritorio y controles antes/después de limpiar. Añadir capturas de filtrado después de integrar el pipe; no presentar controles sin conectar como filtros funcionales.
 - Arquetipos: texto preparado en [arquetipos-jacobo.md](arquetipos-jacobo.md); faltan las fichas visuales y sus avatares o ilustraciones.
+
+### 7.1. Evidencia de selección
+
+![Vista parcial del listado con Stephen Curry seleccionado, fotografías y controles de búsqueda.](capturas/listado-curry-seleccionado.png)
+
+**Figura 1.** Captura aportada por Jacobo: Stephen Curry aparece resaltado mediante fondo naranja suave y borde izquierdo naranja. Se observan las fotografías, los campos de las filas y los controles de búsqueda y posición/edad. El encabezado indica diez jugadores, pero el recorte no muestra el listado completo ni los componentes de detalle y vídeo. La imagen acredita la presentación del estado seleccionado, no el filtrado ni la reproducción multimedia.
+
+### 7.2. Evidencia de adaptación a móvil
+
+![Simulación de iPhone SE en Chrome, con controles apilados y Stephen Curry seleccionado.](capturas/listado-movil-375px.png)
+
+**Figura 2.** Captura aportada por Jacobo en el modo de dispositivos de Chrome: viewport de 375 por 667 píxeles, con previsualización al 58 %. El buscador y los desplegables se distribuyen verticalmente. En las filas visibles caben la foto, el nombre, los datos y el dorsal, y se conserva el resaltado de Curry. Esta evidencia corresponde a una simulación, no a una prueba en un iPhone físico, y no permite verificar las filas que quedan fuera del área capturada ni el detalle y el vídeo situados más abajo.
+
+### 7.3. Nombre largo y cambio de selección en móvil
+
+![Listado móvil con Giannis Antetokounmpo seleccionado y su nombre completo junto al dorsal.](capturas/listado-movil-giannis.png)
+
+**Figura 3.** Captura aportada por Jacobo en la misma simulación de 375 por 667 píxeles. La fila de Giannis Antetokounmpo muestra su nombre completo, posición, edad, altura y dorsal dentro del ancho visible, sin solapamientos. El resaltado aparece en Giannis tras seleccionar otro jugador. Esta captura complementa la revisión de la parte superior del listado con el caso del apellido más largo; no acredita por sí sola el funcionamiento del detalle o del reproductor.
 
 ## 8. Referencias y entrega a Erick
 
