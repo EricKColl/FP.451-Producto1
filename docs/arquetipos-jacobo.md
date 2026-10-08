@@ -48,6 +48,8 @@ La aplicación presenta una selección histórica de jugadores NBA. Las edades y
 
 ## Preparación para el documento común
 
-- Convertir cada perfil en una ficha visual e incorporar un avatar o ilustración con su fuente y licencia.
+- Fichas visuales preparadas: [Laura Martín](arquetipos/laura.png) y [Carlos Rius](arquetipos/carlos.png). Erick puede insertar estas imágenes en el documento común.
+- Versión editable: [fichas-visuales.html](arquetipos/fichas-visuales.html). Se abre directamente en el navegador, sin arrancar Angular. Si se cambia su contenido, deben exportarse de nuevo las imágenes.
+- Los avatares son composiciones tipográficas originales de iniciales (LM y CR), sin fotografías ni recursos gráficos externos que atribuir. Autor de las fichas: Jacobo Barrera Toba.
 - Presentar estos perfiles como hipótesis de diseño, sin afirmar que se realizó investigación con usuarios.
 - Las necesidades describen el producto completo: el pipe de filtrado, el detalle y el reproductor corresponden a otros integrantes y deben estar integrados antes de presentar esas funciones como comprobadas.

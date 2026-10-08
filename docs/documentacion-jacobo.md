@@ -22,6 +22,8 @@ La implementación se desarrolló por bloques pequeños, comprobando la compilac
 | Listado inicial | Importación de datos, recorrido con `*ngFor` y presentación de los campos. | `8190cc7` |
 | Interacción | Selección, resaltado, controles de búsqueda y alternativa de iniciales si falta una foto. | `90806e8` |
 | Fotografías | Diez imágenes locales, créditos y ajuste del encuadre de los avatares. | `8d6268f` |
+| Documentación | Arquetipos y explicación técnica para la integración. | `a31398d` |
+| Evidencias | Capturas de selección y revisión móvil aportadas por Jacobo. | `e7c5469` |
 
 Estos commits pertenecen a la rama de Jacobo. Su publicación en esa rama no implica que estén integrados en `develop` o `main`.
 
@@ -35,6 +37,7 @@ Estos commits pertenecen a la rama de Jacobo. Su publicación en esa rama no imp
 | `src/app/components/players/players.component.css` | Resaltado, foco de teclado, avatares y ajuste de nombres largos. |
 | `public/assets/img/jugadores/` | Diez fotografías JPEG y `ATRIBUCIONES.md`. |
 | `docs/arquetipos-jacobo.md` | Dos perfiles ficticios de usuario y su relación con el diseño. |
+| `docs/arquetipos/` | Fichas visuales de Laura y Carlos en PNG y versión HTML editable. |
 
 ## 3. Datos y multimedia compartidos
 
@@ -223,7 +226,7 @@ Estos son resultados esperados para la integración; no se presentan como prueba
 - Pruebas manuales comunicadas por Jacobo: funcionamiento de la interfaz, carga de fotos y revisión en vista móvil y escritorio. El tamaño aparente en Chrome se corrigió al restablecer el zoom.
 - Pendiente en la versión integrada: filtrado combinado, mensaje sin resultados por filtrado, cierre del detalle, reproducción de los diez vídeos y comprobación online en StackBlitz.
 - Capturas incorporadas: vista parcial del listado con Stephen Curry seleccionado y simulación móvil de 375 por 667 píxeles en Chrome. Pendientes: listado completo en escritorio y controles antes/después de limpiar. Añadir capturas de filtrado después de integrar el pipe; no presentar controles sin conectar como filtros funcionales.
-- Arquetipos: texto preparado en [arquetipos-jacobo.md](arquetipos-jacobo.md); faltan las fichas visuales y sus avatares o ilustraciones.
+- Arquetipos: texto en [arquetipos-jacobo.md](arquetipos-jacobo.md) y fichas visuales de [Laura Martín](arquetipos/laura.png) y [Carlos Rius](arquetipos/carlos.png), con avatares originales de iniciales. La [versión HTML editable](arquetipos/fichas-visuales.html) se ha renderizado en Chrome para exportar las imágenes y se ha comprobado sin desbordamiento horizontal a 1100 y 375 píxeles. Los perfiles y las citas son ficticios, no resultados de investigación con usuarios.
 
 ### 7.1. Evidencia de selección
 
@@ -254,7 +257,7 @@ Las fuentes de estadísticas y datos biográficos están junto a cada objeto de 
 | Erick | Revisar la PR a `develop`, integrar el componente y usar este documento como explicación técnica de la parte de Jacobo. |
 | Marc | Conservar el contrato de selección y coordinar los cambios del pipe en los archivos de `PlayersComponent`; probar resultados vacíos y filtros combinados. |
 | Carles | Utilizar la tabla de IDs para nombrar los diez vídeos y leer la ruta `video` del jugador recibido. |
-| Jacobo | Añadir capturas, preparar las fichas visuales de arquetipos y colaborar en las comprobaciones de integración. |
+| Jacobo | Entregar las capturas y fichas visuales preparadas, completar las evidencias pendientes y colaborar en las comprobaciones de integración. |
 
 ### 8.2. Capturas que se incorporarán al documento común
 
