@@ -41,3 +41,8 @@
   min-width: 0;
   overflow-wrap: anywhere;
 }
+
+/* Al volver el foco a una fila (al cerrar la ficha), que no quede pegada al borde */
+.jugador {
+  scroll-margin-block: 1rem;
+}

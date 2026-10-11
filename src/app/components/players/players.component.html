@@ -34,48 +34,66 @@
   </div>
 </div>
 
-<ul class="list-group">
-  <li *ngFor="let jugador of jugadores" class="list-group-item p-0">
-    <!-- Dentro de un <button> solo se permiten elementos en línea: por eso todo son <span> -->
-    <button
-      type="button"
-      class="jugador w-100 text-start"
-      [class.seleccionado]="jugador.id === idSeleccionado"
-      [attr.aria-pressed]="jugador.id === idSeleccionado"
-      (click)="seleccionar(jugador)"
-    >
-      <span class="d-flex align-items-center gap-3">
-        <!-- alt vacío: el nombre ya aparece al lado y el lector de pantalla no lo repite -->
-        <img
-          *ngIf="!fotosNoDisponibles.has(jugador.id); else iniciales"
-          [src]="jugador.foto"
-          alt=""
-          class="avatar"
-          width="48"
-          height="48"
-          (error)="marcarFotoNoDisponible(jugador.id)"
-        />
-        <ng-template #iniciales>
-          <span class="avatar iniciales" aria-hidden="true">
-            {{ jugador.nombre.charAt(0) }}{{ jugador.apellidos.charAt(0) }}
-          </span>
-        </ng-template>
-        <span class="datos-jugador flex-grow-1">
-          <strong class="d-block">{{ jugador.nombre }} {{ jugador.apellidos }}</strong>
-          <span class="d-block small text-body-secondary">
-            {{ jugador.posicion }} · {{ jugador.edad }} años ·
-            {{ jugador.altura | number: '1.2-2' }} m
-          </span>
-        </span>
-        <span class="fw-semibold">#{{ jugador.dorsal }}</span>
-      </span>
-    </button>
-  </li>
-</ul>
+<!-- El pipe se aplica una sola vez: "filtrados" sirve para la lista, el recuento y el aviso -->
+<ng-container
+  *ngIf="jugadores | filtroJugadores: textoBusqueda : posicionSeleccionada : rangoEdad as filtrados"
+>
+  <!-- role="status": el lector de pantalla anuncia el número de resultados al filtrar -->
+  <p
+    class="small text-body-secondary mb-0"
+    [class.mb-2]="filtrados.length !== jugadores.length"
+    role="status"
+  >
+    <ng-container *ngIf="filtrados.length !== jugadores.length">
+      Mostrando {{ filtrados.length }} de {{ jugadores.length }} jugadores
+    </ng-container>
+  </p>
 
-<p *ngIf="jugadores.length === 0" class="text-body-secondary mt-3 mb-0">
-  No hay jugadores en la plantilla.
-</p>
+  <ul class="list-group">
+    <li *ngFor="let jugador of filtrados" class="list-group-item p-0">
+      <!-- Dentro de un <button> solo se permiten elementos en línea: por eso todo son <span> -->
+      <button
+        type="button"
+        class="jugador w-100 text-start"
+        [id]="'jugador-' + jugador.id"
+        [class.seleccionado]="jugador.id === idSeleccionado"
+        [attr.aria-pressed]="jugador.id === idSeleccionado"
+        (click)="seleccionar(jugador)"
+      >
+        <span class="d-flex align-items-center gap-3">
+          <!-- alt vacío: el nombre ya aparece al lado y el lector de pantalla no lo repite -->
+          <img
+            *ngIf="!fotosNoDisponibles.has(jugador.id); else iniciales"
+            [src]="jugador.foto"
+            alt=""
+            class="avatar"
+            width="48"
+            height="48"
+            (error)="marcarFotoNoDisponible(jugador.id)"
+          />
+          <ng-template #iniciales>
+            <span class="avatar iniciales" aria-hidden="true">
+              {{ jugador.nombre.charAt(0) }}{{ jugador.apellidos.charAt(0) }}
+            </span>
+          </ng-template>
+          <span class="datos-jugador flex-grow-1">
+            <strong class="d-block">{{ jugador.nombre }} {{ jugador.apellidos }}</strong>
+            <!-- text-nowrap: en pantallas estrechas "1,88" y "m" no se separan -->
+            <span class="d-block small text-body-secondary">
+              {{ jugador.posicion }} · <span class="text-nowrap">{{ jugador.edad }} años</span> ·
+              <span class="text-nowrap">{{ jugador.altura | number: '1.2-2' }} m</span>
+            </span>
+          </span>
+          <span class="fw-semibold">#{{ jugador.dorsal }}</span>
+        </span>
+      </button>
+    </li>
+  </ul>
+
+  <p *ngIf="filtrados.length === 0" class="text-body-secondary mt-3 mb-0">
+    Ningún jugador coincide con la búsqueda. Prueba con otros filtros o pulsa «Limpiar filtros».
+  </p>
+</ng-container>
 
 <p class="small mt-2 mb-0">
   <a href="assets/img/jugadores/creditos.html" target="_blank" rel="noopener"
