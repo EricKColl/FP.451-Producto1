@@ -3,10 +3,11 @@ import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Jugador, POSICIONES } from '../../models/jugador.model';
 import { JUGADORES } from '../../data/jugadores.data';
+import { FiltroJugadoresPipe } from '../../pipes/filtro-jugadores-pipe';
 
 @Component({
   selector: 'app-players',
-  imports: [NgFor, NgIf, DecimalPipe, FormsModule],
+  imports: [NgFor, NgIf, DecimalPipe, FormsModule, FiltroJugadoresPipe],
   templateUrl: './players.component.html',
   styleUrl: './players.component.css',
   changeDetection: ChangeDetectionStrategy.Eager,
