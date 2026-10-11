@@ -1,0 +1,66 @@
+.detalle .card-header {
+  background: var(--eb-oscuro);
+  color: #fff;
+}
+
+.etiqueta {
+  font-family: var(--eb-fuente-titulos);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.foto {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 4px solid var(--eb-naranja);
+  background: var(--eb-gris-claro);
+}
+
+.dorsal-grande {
+  font-family: var(--eb-fuente-titulos);
+  font-size: 2.5rem;
+  color: var(--eb-naranja);
+  line-height: 1.2;
+}
+
+.nombre {
+  font-family: var(--eb-fuente-titulos);
+  font-size: 1.8rem;
+}
+
+.posicion {
+  background: var(--eb-naranja);
+}
+
+.datos dt {
+  font-weight: 600;
+  color: var(--eb-gris-texto);
+}
+
+.descripcion {
+  font-style: italic;
+  border-left: 3px solid var(--eb-naranja);
+  padding-left: 0.75rem;
+}
+
+.estadistica {
+  background: var(--eb-gris-claro);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.25rem;
+}
+
+.estadistica .valor {
+  display: block;
+  font-family: var(--eb-fuente-titulos);
+  font-size: 1.6rem;
+  color: var(--eb-oscuro);
+}
+
+.estadistica .texto {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--eb-gris-texto);
+}
