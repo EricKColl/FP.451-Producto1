@@ -8,3 +8,15 @@
   font-size: 3rem;
   color: var(--eb-naranja);
 }
+
+/* Ficha y reproductor: en escritorio se quedan a la vista mientras se recorre el listado */
+.ficha {
+  scroll-margin-top: 1rem;
+}
+
+@media (min-width: 992px) {
+  .ficha {
+    position: sticky;
+    top: 1rem;
+  }
+}
