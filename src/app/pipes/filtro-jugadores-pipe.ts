@@ -25,9 +25,10 @@ export class FiltroJugadoresPipe implements PipeTransform {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, '')
       .trim();
   }
-  
+
   // Rangos del desplegable de edad de PlayersComponent ('' = sin filtro)
   private estaEnRango(edad: number, rangoEdad: string): boolean {
     switch (rangoEdad) {
