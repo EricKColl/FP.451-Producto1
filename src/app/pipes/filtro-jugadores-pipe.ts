@@ -8,11 +8,13 @@ export class FiltroJugadoresPipe implements PipeTransform {
   transform(jugadores: Jugador[], texto = '', posicion = '', rangoEdad = ''): Jugador[] {
     if (!jugadores) return [];
 
-    const busqueda = this.normalizar(texto);
+    // Cada palabra buscada debe aparecer en el nombre completo, en cualquier orden:
+    // "curry stephen" y "o neal" también encuentran a Stephen Curry y a O'Neal
+    const palabras = this.normalizar(texto).split(' ').filter(Boolean);
 
     return jugadores.filter((jugador) => {
       const nombreCompleto = this.normalizar(`${jugador.nombre} ${jugador.apellidos}`);
-      const coincideTexto = nombreCompleto.includes(busqueda);
+      const coincideTexto = palabras.every((palabra) => nombreCompleto.includes(palabra));
       const coincidePosicion = !posicion || jugador.posicion === posicion;
       const coincideEdad = this.estaEnRango(jugador.edad, rangoEdad);
 
@@ -20,8 +22,8 @@ export class FiltroJugadoresPipe implements PipeTransform {
     });
   }
 
-  private normalizar(valor: string): string {
-    return valor
+  private normalizar(valor: string | null): string {
+    return (valor ?? '')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
