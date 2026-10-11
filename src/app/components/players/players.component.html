@@ -35,7 +35,12 @@
 </div>
 
 <ul class="list-group">
-  <li *ngFor="let jugador of jugadores" class="list-group-item p-0">
+  <li
+    *ngFor="
+      let jugador of jugadores | filtroJugadores: textoBusqueda : posicionSeleccionada : rangoEdad
+    "
+    class="list-group-item p-0"
+  >
     <!-- Dentro de un <button> solo se permiten elementos en línea: por eso todo son <span> -->
     <button
       type="button"
@@ -73,7 +78,12 @@
   </li>
 </ul>
 
-<p *ngIf="jugadores.length === 0" class="text-body-secondary mt-3 mb-0">
+<p
+  *ngIf="
+    (jugadores | filtroJugadores: textoBusqueda : posicionSeleccionada : rangoEdad).length === 0
+  "
+  class="text-body-secondary mt-3 mb-0"
+>
   No hay jugadores en la plantilla.
 </p>
 
