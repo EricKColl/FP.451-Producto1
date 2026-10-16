@@ -15,7 +15,8 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 
 - **Proyecto funcionando (StackBlitz):** https://stackblitz.com/github/EricKColl/FP.451-Producto1/tree/main
   Compila el proyecto en el navegador a partir de la rama `main` (siempre la última versión). No necesita cuenta; la primera carga tarda 1-2 minutos.
-- Trello: _pendiente_
+- **Planificación (Trello):** https://trello.com/b/NjFDvrUe/fp451-p-des-front-end-con-frameworks-avanz-en-ent-m%C3%B3v
+  Tareas con responsable, estimación en horas, fecha límite y checklist. Acceso para el equipo y el consultor.
 - Figma (mockup): _pendiente_
 
 ## Ramas
