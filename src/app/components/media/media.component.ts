@@ -9,6 +9,14 @@ import {
 } from '@angular/core';
 import { Jugador } from '../../models/jugador.model';
 
+// Safari en iPhone puede ofrecer pantalla completa nativa solo para el vídeo.
+type VideoConPantallaCompleta = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void;
+  webkitExitFullscreen?: () => void;
+  webkitSupportsFullscreen?: boolean;
+  webkitDisplayingFullscreen?: boolean;
+};
+
 @Component({
   selector: 'app-media',
   imports: [],
@@ -27,17 +35,30 @@ export class MediaComponent implements OnChanges {
   async alternarPantallaCompleta(): Promise<void> {
     const contenedor = this.reproductorRef?.nativeElement;
     if (!contenedor) return;
+    const video = this.video as VideoConPantallaCompleta | undefined;
     this.errorPantallaCompleta = '';
-    if (!contenedor.requestFullscreen || !document.exitFullscreen || !document.fullscreenEnabled) {
-      this.errorPantallaCompleta =
-        'Este navegador no permite mostrar el reproductor en pantalla completa.';
-      return;
-    }
     try {
       if (document.fullscreenElement === contenedor) {
         await document.exitFullscreen();
-      } else {
+      } else if (video?.webkitDisplayingFullscreen && video.webkitExitFullscreen) {
+        video.webkitExitFullscreen();
+      } else if (
+        typeof contenedor.requestFullscreen === 'function' &&
+        typeof document.exitFullscreen === 'function' &&
+        document.fullscreenEnabled
+      ) {
         await contenedor.requestFullscreen();
+      } else if (
+        video?.webkitEnterFullscreen &&
+        video.webkitSupportsFullscreen !== false &&
+        this.videoDisponible &&
+        !this.errorDeCarga
+      ) {
+        // Se llama directamente desde el clic, conservando la activación del usuario.
+        video.webkitEnterFullscreen();
+      } else {
+        this.errorPantallaCompleta =
+          'Este navegador no permite mostrar el reproductor en pantalla completa.';
       }
     } catch {
       this.errorPantallaCompleta =
@@ -48,8 +69,25 @@ export class MediaComponent implements OnChanges {
   // También se ejecuta al salir con Escape o desde los controles del navegador.
   @HostListener('document:fullscreenchange')
   alCambiarPantallaCompleta(): void {
+    const video = this.video as VideoConPantallaCompleta | undefined;
+    this.pantallaCompleta =
+      document.fullscreenElement === this.reproductorRef?.nativeElement ||
+      video?.webkitDisplayingFullscreen === true;
+    this.errorPantallaCompleta = '';
+  }
+
+  alEntrarPantallaCompletaNativa(): void {
+    this.pantallaCompleta = true;
+    this.errorPantallaCompleta = '';
+  }
+
+  alSalirPantallaCompletaNativa(): void {
     this.pantallaCompleta = document.fullscreenElement === this.reproductorRef?.nativeElement;
     this.errorPantallaCompleta = '';
+    // Los controles del sistema pueden haber cambiado el tiempo o la reproducción.
+    this.alActualizarTiempo();
+    const video = this.video;
+    this.reproduciendo = !!video && !video.paused && !video.ended;
   }
 
   videoDisponible = false;
