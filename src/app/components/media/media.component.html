@@ -1,1 +1,154 @@
-<p class="p-3 border">MediaComponent · {{ jugador.video }} · pendiente (Persona 4)</p>
+<section #reproductor class="card shadow-sm reproductor" aria-label="Vídeo del jugador">
+  <div class="card-header d-flex align-items-center gap-2">
+    <i class="bi bi-camera-reels" aria-hidden="true"></i>
+    <h2 class="h5 mb-0 etiqueta">Vídeo · {{ jugador.nombre }} {{ jugador.apellidos }}</h2>
+  </div>
+
+  <div class="ratio ratio-16x9 bg-black" [hidden]="errorDeCarga">
+    <video
+      #video
+      [src]="jugador.video || null"
+      [volume]="volumen / 100"
+      [muted]="silenciado"
+      [attr.aria-label]="'Vídeo de ' + jugador.nombre + ' ' + jugador.apellidos"
+      preload="metadata"
+      playsinline
+      (loadedmetadata)="alCargarMetadatos()"
+      (durationchange)="actualizarDuracion()"
+      (timeupdate)="alActualizarTiempo()"
+      (error)="alFallarCarga()"
+      (play)="alReproducir()"
+      (pause)="alPausar()"
+      (ended)="alPausar()"
+      (volumechange)="alCambiarVolumen()"
+      (webkitbeginfullscreen)="alEntrarPantallaCompletaNativa()"
+      (webkitendfullscreen)="alSalirPantallaCompletaNativa()"
+    >
+      Tu navegador no admite el elemento de vídeo HTML5.
+    </video>
+  </div>
+
+  <div class="card-body panel-controles">
+    <div class="aviso d-flex align-items-start gap-2" [hidden]="!errorDeCarga" role="status">
+      <i class="bi bi-info-circle" aria-hidden="true"></i>
+      <p class="mb-0">
+        No se ha podido cargar el vídeo de {{ jugador.nombre }} {{ jugador.apellidos }}. Puede que
+        todavía no esté disponible o que el formato no sea compatible.
+      </p>
+    </div>
+    <div class="progreso">
+      <input
+        type="range"
+        class="form-range barra-progreso"
+        min="0"
+        [max]="duracion || 1"
+        step="0.1"
+        [value]="tiempoActual"
+        [disabled]="!videoDisponible || errorDeCarga || duracion <= 0"
+        aria-label="Posición del vídeo"
+        [attr.aria-valuetext]="
+          formatearTiempo(tiempoActual) +
+          ' de ' +
+          (duracion > 0 ? formatearTiempo(duracion) : 'duración desconocida')
+        "
+        (input)="buscar($event)"
+      />
+      <p class="tiempo small text-end mb-0">
+        {{ formatearTiempo(tiempoActual) }} /
+        {{ duracion > 0 ? formatearTiempo(duracion) : '--:--' }}
+      </p>
+    </div>
+    <div class="fila-controles">
+      <div class="controles d-flex gap-1" role="group" aria-label="Controles del vídeo">
+        <button
+          type="button"
+          class="btn btn-reproducir"
+          aria-label="Reproducir"
+          title="Reproducir o reanudar"
+          [disabled]="!videoDisponible || errorDeCarga || reproduciendo"
+          (click)="reproducir()"
+        >
+          <i class="bi bi-play-fill" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          aria-label="Pausar"
+          title="Pausar"
+          [disabled]="!videoDisponible || errorDeCarga || !reproduciendo"
+          (click)="pausar()"
+        >
+          <i class="bi bi-pause-fill" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          aria-label="Stop"
+          title="Stop: detener y volver al inicio"
+          [disabled]="!videoDisponible || errorDeCarga"
+          (click)="stop()"
+        >
+          <i class="bi bi-stop-fill" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div
+        class="audio d-flex align-items-center gap-2"
+        role="group"
+        aria-label="Controles de audio"
+      >
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [attr.aria-label]="silenciado || volumen === 0 ? 'Recuperar sonido' : 'Silenciar'"
+          [title]="silenciado || volumen === 0 ? 'Recuperar sonido' : 'Silenciar'"
+          [disabled]="!videoDisponible || errorDeCarga"
+          (click)="alternarSilencio()"
+        >
+          <i
+            class="bi"
+            [class.bi-volume-mute-fill]="silenciado || volumen === 0"
+            [class.bi-volume-up-fill]="!silenciado && volumen > 0"
+            aria-hidden="true"
+          ></i>
+        </button>
+        <div class="control-volumen">
+          <input
+            type="range"
+            class="form-range barra-volumen mb-0"
+            min="0"
+            max="100"
+            step="1"
+            [value]="volumen"
+            [disabled]="!videoDisponible || errorDeCarga"
+            aria-label="Volumen del vídeo"
+            [attr.aria-valuetext]="volumen + ' %' + (silenciado ? ', silenciado' : '')"
+            (input)="cambiarVolumen($event)"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [attr.aria-label]="
+            pantallaCompleta ? 'Salir de pantalla completa' : 'Entrar en pantalla completa'
+          "
+          [title]="pantallaCompleta ? 'Salir de pantalla completa' : 'Entrar en pantalla completa'"
+          [disabled]="!pantallaCompleta && (!videoDisponible || errorDeCarga)"
+          (click)="alternarPantallaCompleta()"
+        >
+          <i
+            class="bi"
+            [class.bi-fullscreen]="!pantallaCompleta"
+            [class.bi-fullscreen-exit]="pantallaCompleta"
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </div>
+    <p class="text-danger small mt-3 mb-0" [hidden]="!errorDeReproduccion" role="alert">
+      {{ errorDeReproduccion }}
+    </p>
+    <p class="text-danger small mt-2 mb-0" [hidden]="!errorPantallaCompleta" role="alert">
+      {{ errorPantallaCompleta }}
+    </p>
+  </div>
+</section>

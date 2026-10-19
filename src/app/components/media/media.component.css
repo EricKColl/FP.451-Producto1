@@ -1,0 +1,179 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.reproductor {
+  overflow: hidden;
+}
+
+.reproductor:fullscreen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--eb-oscuro);
+  border: 0;
+  border-radius: 0;
+}
+
+.reproductor::backdrop {
+  background: #000;
+}
+
+.reproductor:fullscreen .card-header {
+  flex-shrink: 0;
+}
+
+.reproductor:fullscreen .ratio {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.reproductor:fullscreen .ratio::before {
+  padding-top: 0;
+}
+
+.reproductor:fullscreen .panel-controles {
+  flex: 0 0 auto;
+  max-height: 50%;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.reproductor .card-header {
+  background: var(--eb-oscuro);
+  color: #fff;
+}
+
+.etiqueta {
+  font-family: var(--eb-fuente-titulos);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.aviso {
+  padding: 1rem;
+  background: var(--eb-gris-claro);
+  color: var(--eb-oscuro);
+  border-left: 3px solid var(--eb-naranja);
+  border-radius: 0.25rem;
+}
+
+.controles .btn,
+.audio .btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.panel-controles {
+  padding: 0.5rem 0.75rem;
+}
+
+.progreso {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.barra-progreso {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.fila-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.audio {
+  margin-left: auto;
+  min-width: 0;
+}
+
+.tiempo {
+  color: var(--eb-gris-texto);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.barra-progreso::-webkit-slider-thumb,
+.barra-volumen::-webkit-slider-thumb {
+  background: var(--eb-naranja-oscuro);
+}
+
+.barra-progreso::-moz-range-thumb,
+.barra-volumen::-moz-range-thumb {
+  background: var(--eb-naranja-oscuro);
+}
+
+.barra-progreso:focus-visible,
+.barra-volumen:focus-visible {
+  outline: 3px solid var(--eb-oscuro);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.btn-reproducir {
+  background: var(--eb-naranja-oscuro);
+  border-color: var(--eb-naranja-oscuro);
+  color: #fff;
+}
+
+.btn-reproducir:hover,
+.btn-reproducir:active,
+.btn-reproducir:disabled {
+  background: var(--eb-naranja-oscuro);
+  border-color: var(--eb-naranja-oscuro);
+  color: #fff;
+}
+
+.controles .btn:focus-visible,
+.audio .btn:focus-visible {
+  outline: 3px solid var(--eb-oscuro);
+  outline-offset: 3px;
+}
+
+.control-volumen {
+  width: clamp(64px, 12vw, 112px);
+  min-width: 0;
+}
+
+@media (max-width: 359.98px) {
+  .progreso {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .barra-progreso {
+    flex-basis: 100%;
+  }
+
+  .tiempo {
+    margin-left: auto;
+  }
+}
+
+/* Las utilidades flex de Bootstrap no deben mostrar el aviso cuando está oculto. */
+[hidden] {
+  display: none !important;
+}
