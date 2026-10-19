@@ -7,6 +7,7 @@ import {
   OnChanges,
   ViewChild,
 } from '@angular/core';
+import { UpperCasePipe } from '@angular/common';
 import { Jugador } from '../../models/jugador.model';
 
 // Safari en iPhone puede ofrecer pantalla completa nativa solo para el vídeo.
@@ -19,7 +20,7 @@ type VideoConPantallaCompleta = HTMLVideoElement & {
 
 @Component({
   selector: 'app-media',
-  imports: [],
+  imports: [UpperCasePipe],
   templateUrl: './media.component.html',
   styleUrl: './media.component.css',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -102,6 +103,15 @@ export class MediaComponent implements OnChanges {
 
   private get video(): HTMLVideoElement | undefined {
     return this.videoRef?.nativeElement;
+  }
+
+  // Parte recorrida de cada deslizador (se pinta en cian con la variable CSS --relleno)
+  get porcentajeProgreso(): number {
+    return this.duracion > 0 ? Math.min(100, (this.tiempoActual / this.duracion) * 100) : 0;
+  }
+
+  get porcentajeVolumen(): number {
+    return this.silenciado ? 0 : this.volumen;
   }
 
   // Cada selección comienza con su propio estado de carga.

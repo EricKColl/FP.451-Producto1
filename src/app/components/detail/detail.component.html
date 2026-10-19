@@ -1,71 +1,189 @@
-<article class="card shadow-sm detalle">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <span class="etiqueta">Ficha del jugador</span>
-    <!-- data-bs-theme="dark": aspa blanca (btn-close-white está obsoleta en Bootstrap 5.3) -->
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-theme="dark"
-      aria-label="Cerrar detalle"
-      (click)="onCerrar()"
-    ></button>
+<!-- Fondo: la foto del jugador convertida en holograma; la "cámara" la recorre al cambiar de pestaña -->
+<div class="holo-fondo" aria-hidden="true">
+  <div
+    class="holo-fondo__foto"
+    [style.background-image]="'url(' + jugador.foto + ')'"
+    [style.--fx]="vistas[vista].fx"
+    [style.--fy]="vistas[vista].fy"
+    [style.--fs]="vistas[vista].fs"
+  ></div>
+  <div class="holo-fondo__tinte"></div>
+  <div class="holo-fondo__vineta"></div>
+</div>
+<p class="holo-dorsal" aria-hidden="true">{{ jugador.dorsal }}</p>
+<div class="holo-suelo" aria-hidden="true"></div>
+
+<div class="escenario__barra">
+  <p class="escenario__codigo mono">
+    FICHA <b>{{ codigo }}</b
+    >/{{ total }} · {{ jugador.posicion | uppercase }}
+  </p>
+  <button
+    #botonCerrar
+    type="button"
+    class="boton-cerrar"
+    aria-label="Cerrar ficha"
+    (click)="onCerrar()"
+  >
+    <i class="bi bi-x-lg" aria-hidden="true"></i>
+  </button>
+</div>
+
+<!-- Pestañas (nav de Bootstrap con el patrón tablist accesible) -->
+<div class="pestanas nav nav-pills" role="tablist" aria-label="Secciones de la ficha">
+  <span #indicador class="pestanas__indicador" aria-hidden="true"></span>
+  <button
+    *ngFor="let v of vistas; let i = index"
+    #pestana
+    type="button"
+    role="tab"
+    class="pestana nav-link"
+    [id]="'tab-' + v.id"
+    [attr.aria-controls]="'vista-' + v.id"
+    [attr.aria-selected]="i === vista"
+    [attr.tabindex]="i === vista ? 0 : -1"
+    (click)="irA(i)"
+    (keydown)="teclaPestana($event, i)"
+  >
+    <i class="bi" [ngClass]="v.icono" aria-hidden="true"></i>{{ v.nombre }}
+  </button>
+</div>
+
+<!-- Mundo: las tres vistas en fila; la pista se desplaza hasta la vista activa -->
+<div class="mundo">
+  <div class="pista">
+    <!-- PERFIL -->
+    <article
+      class="vista"
+      id="vista-perfil"
+      role="tabpanel"
+      aria-labelledby="tab-perfil"
+      [class.activa]="vista === 0"
+      [attr.inert]="vista === 0 ? null : ''"
+    >
+      <div class="perfil">
+        <div class="perfil__retrato">
+          <div class="holograma entra" style="--i: 0">
+            <div class="holograma__anillo" aria-hidden="true"></div>
+            <div class="holograma__anillo holograma__anillo--2" aria-hidden="true"></div>
+            <div class="holograma__foto">
+              <img
+                [src]="jugador.foto"
+                [alt]="'Foto de ' + jugador.nombre + ' ' + jugador.apellidos"
+                width="300"
+                height="300"
+              />
+            </div>
+            <div class="holograma__proyector" aria-hidden="true"></div>
+            <span class="holograma__dorsal">
+              <span class="visually-hidden">Dorsal </span>#{{ jugador.dorsal }}
+            </span>
+          </div>
+          <!-- Atribución de la foto junto a la imagen -->
+          <p *ngIf="credito" class="credito-foto entra" style="--i: 1">
+            Foto: {{ autorFoto }} ·
+            <a [href]="credito.origen" target="_blank" rel="noopener">{{ credito.licencia }}</a
+            >, Wikimedia Commons
+          </p>
+        </div>
+
+        <div class="perfil__info">
+          <span class="etiqueta-pos entra" style="--i: 1">
+            <i class="bi bi-crosshair" aria-hidden="true"></i>{{ jugador.posicion }}
+          </span>
+          <h2 class="perfil__nombre entra" style="--i: 2">
+            {{ jugador.nombre }} <span>{{ jugador.apellidos }}</span>
+          </h2>
+          <p *ngIf="equipo" class="perfil__equipo mono entra" style="--i: 3">
+            {{ equipo | uppercase }}
+          </p>
+          <dl class="datos">
+            <div *ngFor="let dato of datos; let i = index" class="dato entra" [style.--i]="4 + i">
+              <dt>{{ dato.etiqueta }}</dt>
+              <dd>{{ dato.valor }}</dd>
+            </div>
+          </dl>
+          <p class="cita entra" style="--i: 10">{{ resumen }}</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ESTADÍSTICAS -->
+    <article
+      class="vista"
+      id="vista-stats"
+      role="tabpanel"
+      aria-labelledby="tab-stats"
+      [class.activa]="vista === 1"
+      [attr.inert]="vista === 1 ? null : ''"
+    >
+      <div class="stats">
+        <div class="stats__cab entra" style="--i: 0">
+          <h2 class="stats__titulo">
+            {{ jugador.nombre }} <span>{{ jugador.apellidos }}</span>
+          </h2>
+          <p class="stats__nota mono">TEMPORADA REGULAR {{ temporada }} · MEDIAS POR PARTIDO</p>
+        </div>
+
+        <div class="anillos">
+          <div
+            *ngFor="let anillo of anillos; let i = index"
+            class="anillo vidrio hud entra"
+            [class.anillo--naranja]="anillo.naranja"
+            [style.--i]="i + 1"
+          >
+            <div class="anillo__grafico">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="anillo__fondo" cx="50" cy="50" r="46"></circle>
+                <circle
+                  class="anillo__valor"
+                  cx="50"
+                  cy="50"
+                  r="46"
+                  [style.stroke-dashoffset]="desplazamientoAnillo(anillo)"
+                ></circle>
+              </svg>
+              <p class="anillo__cifra">{{ anillo.mostrado | number: '1.1-1' }}</p>
+            </div>
+            <p class="anillo__etq">{{ anillo.etiqueta }}</p>
+            <p class="anillo__rango mono">máx. plantilla {{ anillo.max | number: '1.1-1' }}</p>
+          </div>
+        </div>
+
+        <div class="barras vidrio entra" style="--i: 4">
+          <p class="barras__titulo">Comparativa con la plantilla</p>
+          <div *ngFor="let barra of barras" class="barra">
+            <span>{{ barra.etiqueta }}</span>
+            <span class="barra__pista">
+              <span
+                class="barra__relleno"
+                [style.width.%]="
+                  statsVisibles ? (barra.fraccion > 1 ? 100 : barra.fraccion * 100) : 0
+                "
+              ></span>
+              <span
+                *ngIf="barra.media !== null"
+                class="barra__media"
+                [style.left.%]="barra.media * 100"
+              ></span>
+            </span>
+            <span class="barra__valor mono">{{ barra.texto }}</span>
+          </div>
+          <p class="leyenda"><i></i>media de la plantilla</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- VÍDEO: el MediaComponent que proyecta App -->
+    <article
+      class="vista"
+      id="vista-video"
+      role="tabpanel"
+      aria-labelledby="tab-video"
+      [class.activa]="vista === 2"
+      [attr.inert]="vista === 2 ? null : ''"
+    >
+      <ng-content></ng-content>
+    </article>
   </div>
-
-  <div class="card-body">
-    <div class="row g-4 align-items-center">
-      <div class="col-sm-4 text-center">
-        <img
-          [src]="jugador.foto"
-          [alt]="'Foto de ' + jugador.nombre + ' ' + jugador.apellidos"
-          class="foto img-fluid"
-          width="160"
-          height="160"
-        />
-        <div class="dorsal-grande">#{{ jugador.dorsal }}</div>
-      </div>
-
-      <div class="col-sm-8">
-        <h2 class="nombre mb-1">{{ jugador.nombre }} {{ jugador.apellidos }}</h2>
-        <span class="badge rounded-pill posicion mb-3">{{ jugador.posicion }}</span>
-
-        <dl class="row datos mb-0">
-          <dt class="col-5">Nombre</dt>
-          <dd class="col-7">{{ jugador.nombre }}</dd>
-          <dt class="col-5">Apellidos</dt>
-          <dd class="col-7">{{ jugador.apellidos }}</dd>
-          <dt class="col-5">Edad</dt>
-          <dd class="col-7">{{ jugador.edad }} años</dd>
-          <dt class="col-5">Altura</dt>
-          <dd class="col-7">{{ jugador.altura | number: '1.2-2' }} m</dd>
-          <dt class="col-5">Peso</dt>
-          <dd class="col-7">{{ jugador.peso }} kg</dd>
-          <dt class="col-5">Nacionalidad</dt>
-          <dd class="col-7">{{ jugador.nacionalidad }}</dd>
-        </dl>
-      </div>
-    </div>
-
-    <p class="descripcion mt-3 mb-3">{{ jugador.descripcion }}</p>
-
-    <div class="row g-2 text-center">
-      <div class="col-4">
-        <div class="estadistica">
-          <span class="valor">{{ jugador.estadisticas.puntos | number: '1.1-1' }}</span>
-          <span class="texto">Puntos</span>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="estadistica">
-          <span class="valor">{{ jugador.estadisticas.rebotes | number: '1.1-1' }}</span>
-          <span class="texto">Rebotes</span>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="estadistica">
-          <span class="valor">{{ jugador.estadisticas.asistencias | number: '1.1-1' }}</span>
-          <span class="texto">Asistencias</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
+</div>
