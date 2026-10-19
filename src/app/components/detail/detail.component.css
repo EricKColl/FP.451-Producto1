@@ -698,3 +698,22 @@
     display: none;
   }
 }
+
+/* Móviles muy estrechos (320 px): cada dato en una fila, para que los apellidos largos no se partan */
+@media (max-width: 359.98px) {
+  .datos {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .dato {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+  }
+  .dato dd {
+    margin: 0;
+    text-align: right;
+  }
+}
