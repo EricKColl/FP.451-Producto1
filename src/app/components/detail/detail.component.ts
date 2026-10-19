@@ -19,9 +19,9 @@ import {
 } from '@angular/core';
 import { DecimalPipe, formatNumber, NgClass, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Estadisticas, Jugador } from '../../models/jugador.model';
-import { Credito } from '../../models/credito.model';
+import { Credito, CreditoVideo } from '../../models/credito.model';
 import { JUGADORES } from '../../data/jugadores.data';
-import { CREDITOS } from '../../data/creditos.data';
+import { CREDITOS, CREDITOS_VIDEO } from '../../data/creditos.data';
 import { MediaComponent } from '../media/media.component';
 
 // Las tres secciones de la ficha. fx, fy y fs colocan la "cámara" sobre la foto de fondo.
@@ -142,6 +142,7 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
   resumen = '';
   temporada = '';
   credito: Credito | undefined;
+  creditoVideo: CreditoVideo | undefined;
   anillos: Anillo[] = [];
   barras: Barra[] = [];
 
@@ -169,6 +170,7 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.resumen = punto > 0 ? j.descripcion.slice(punto + 2) : j.descripcion;
     this.temporada = j.descripcion.match(/temporada (\d{4}-\d{2,4})/)?.[1] ?? '';
     this.credito = CREDITOS.find((c) => c.idJugador === j.id);
+    this.creditoVideo = CREDITOS_VIDEO.find((c) => c.idJugador === j.id);
 
     const s = j.estadisticas;
     const anillo = (clave: ClaveEstadistica, etiqueta: string, naranja = false): Anillo => ({

@@ -184,6 +184,12 @@
       [attr.inert]="vista === 2 ? null : ''"
     >
       <ng-content></ng-content>
+      <!-- Origen del fragmento de vídeo, junto al reproductor (como el crédito de la foto) -->
+      <p *ngIf="creditoVideo" class="credito-video">
+        Vídeo original:
+        <a [href]="creditoVideo.url" target="_blank" rel="noopener">{{ creditoVideo.titulo }}</a>
+        · {{ creditoVideo.canal }} (YouTube)
+      </p>
     </article>
   </div>
 </div>

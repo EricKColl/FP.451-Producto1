@@ -7,3 +7,11 @@ export interface Credito {
   archivo: string; // nombre del archivo en Wikimedia Commons
   origen: string; // página del archivo en Wikimedia Commons
 }
+
+// Vídeo original (YouTube) del que procede el fragmento de cada jugador.
+export interface CreditoVideo {
+  idJugador: number;
+  titulo: string;
+  canal: string;
+  url: string;
+}

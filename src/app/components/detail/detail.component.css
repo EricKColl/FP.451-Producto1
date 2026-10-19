@@ -322,20 +322,27 @@
   }
 }
 
-/* Crédito junto al retrato (atribución cerca de la imagen) */
-.credito-foto {
+/* Créditos junto al retrato y bajo el reproductor (atribución cerca del contenido) */
+.credito-foto,
+.credito-video {
   margin: 6px 0 0;
   font-size: 0.68rem;
   color: var(--eb-texto-3);
   text-align: center;
 }
-.credito-foto a {
+.credito-foto a,
+.credito-video a {
   color: var(--eb-texto-2);
   text-decoration-color: var(--eb-linea-fuerte);
   text-underline-offset: 3px;
 }
-.credito-foto a:hover {
+.credito-foto a:hover,
+.credito-video a:hover {
   color: var(--eb-cian);
+}
+
+.credito-video {
+  margin-top: 8px;
 }
 
 .perfil__info {
