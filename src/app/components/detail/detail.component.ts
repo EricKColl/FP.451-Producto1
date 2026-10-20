@@ -112,10 +112,8 @@ const CIRCUNFERENCIA = 289; // 2·π·46, radio de los anillos
   styleUrl: './detail.component.css',
   changeDetection: ChangeDetectionStrategy.Eager,
   host: {
-    '[class.moviendo]': 'moviendo',
     '[class.materializando]': 'materializando',
     '[style.--vista]': 'vista',
-    '[style.--giro]': 'vistas[vista].giro',
   },
 })
 export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
@@ -129,11 +127,11 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
   @ContentChild(MediaComponent) media?: MediaComponent;
   @ViewChild('botonCerrar') botonCerrar?: ElementRef<HTMLButtonElement>;
   @ViewChild('indicador') indicador?: ElementRef<HTMLElement>;
+  @ViewChild('pista') pista?: ElementRef<HTMLElement>;
   @ViewChildren('pestana') pestanas!: QueryList<ElementRef<HTMLButtonElement>>;
 
   readonly vistas = VISTAS;
   vista = 0;
-  moviendo = false;
   materializando = false;
   statsVisibles = false;
 
@@ -151,6 +149,7 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
   private temporizadores: number[] = [];
   private fotogramas: number[] = [];
+  private movimiento?: Animation;
   private inicioDeslizar: { x: number; y: number } | null = null;
 
   // Cada jugador nuevo vuelve a Perfil y se "materializa" en el escenario
@@ -238,11 +237,7 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
     if (indice === this.vista) return;
     this.vista = indice;
     this.moverIndicadorDespues();
-    if (!this.movimientoReducido()) {
-      this.moviendo = false;
-      this.despues(() => (this.moviendo = true), 0);
-      this.despues(() => (this.moviendo = false), 1150);
-    }
+    this.moverCamara(indice);
     if (VISTAS[indice].id === 'stats') this.animarEstadisticas();
     if (VISTAS[indice].id !== 'video') this.media?.pausar();
   }
@@ -367,6 +362,24 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.fotograma(() => this.moverIndicador());
   }
 
+  // La pista pasa a la vista nueva y la "cámara" se aleja y gira un instante. La animación
+  // empieza en el mismo clic (Web Animations API), sin temporizadores: aunque el navegador
+  // vaya lento (StackBlitz, Safari), el movimiento se hace una sola vez.
+  private moverCamara(indice: number): void {
+    this.movimiento?.cancel();
+    const pista = this.pista?.nativeElement;
+    if (!pista || typeof pista.animate !== 'function' || this.movimientoReducido()) return;
+    const x = `${indice * -33.3333}%`;
+    this.movimiento = pista.animate(
+      [
+        { transform: `translate3d(${x}, 0, 0)` },
+        { transform: `translate3d(${x}, 0, -120px) rotateY(${VISTAS[indice].giro})`, offset: 0.5 },
+        { transform: `translate3d(${x}, 0, 0)` },
+      ],
+      { duration: 1100, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
+    );
+  }
+
   private despues(accion: () => void, ms: number): void {
     this.temporizadores.push(
       window.setTimeout(() => {
@@ -390,7 +403,8 @@ export class DetailComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.fotogramas.forEach((f) => cancelAnimationFrame(f));
     this.temporizadores = [];
     this.fotogramas = [];
-    this.moviendo = false;
+    this.movimiento?.cancel();
+    this.movimiento = undefined;
     this.materializando = false;
   }
 
