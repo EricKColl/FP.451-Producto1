@@ -1,37 +1,68 @@
+<!-- Ambiente: pista en perspectiva, halos y grano. Puramente decorativo -->
+<div class="ambiente" aria-hidden="true">
+  <div class="ambiente__halo ambiente__halo--cian"></div>
+  <div class="ambiente__halo ambiente__halo--naranja"></div>
+  <div class="ambiente__pista"></div>
+  <div class="ambiente__grano"></div>
+</div>
+
+<a class="saltar" href="#lista">Saltar a la plantilla</a>
+
 <app-header [nombreEquipo]="nombreEquipo" [totalJugadores]="totalJugadores"></app-header>
 
-<main class="container-xl py-4">
-  <div class="row g-4">
+<main class="escena container-fluid">
+  <div class="row align-items-start">
     <!-- ZONA 1: LISTADO + FILTROS -->
-    <section class="col-lg-5">
+    <div class="col-12 col-lg-auto columna-plantilla">
       <app-players
-        [idSeleccionado]="jugadorActual ? jugadorActual.id : null"
+        [idSeleccionado]="fichaAbierta && jugadorActual ? jugadorActual.id : null"
         (jugadorSeleccionado)="onJugadorSeleccionado($event)"
       ></app-players>
-    </section>
+    </div>
 
-    <!-- ZONA 2 y 3: DETALLE + REPRODUCTOR (solo si hay jugador elegido) -->
-    <section class="col-lg-7">
-      <div *ngIf="jugadorActual; else sinSeleccion" id="ficha" class="ficha d-grid gap-4">
-        <app-detail [jugador]="jugadorActual" (cerrar)="onCerrarDetalle()"></app-detail>
-        <app-media [jugador]="jugadorActual"></app-media>
-      </div>
-
-      <ng-template #sinSeleccion>
-        <div
-          class="vacio card shadow-sm h-100 d-flex align-items-center justify-content-center text-center p-5"
+    <!-- ZONAS 2 y 3: ESCENARIO CON LA FICHA (DETALLE) Y EL VÍDEO (REPRODUCTOR) -->
+    <div class="col-12 col-lg columna-escenario">
+      <section
+        class="escenario"
+        [attr.data-estado]="fichaAbierta ? 'activo' : 'vacio'"
+        aria-label="Ficha del jugador"
+      >
+        <app-detail
+          *ngIf="jugadorActual; else sinSeleccion"
+          [jugador]="jugadorActual"
+          [totalJugadores]="totalJugadores"
+          (cerrar)="onCerrarDetalle()"
         >
-          <i class="bi bi-hand-index-thumb icono"></i>
-          <h2 class="h4 mt-3">Selecciona un jugador</h2>
-          <p class="text-body-secondary mb-0">
-            Pulsa sobre cualquier jugador de la plantilla para ver su ficha y su vídeo.
-          </p>
-        </div>
-      </ng-template>
-    </section>
+          <app-media [jugador]="jugadorActual"></app-media>
+        </app-detail>
+
+        <ng-template #sinSeleccion>
+          <div class="holo-suelo" aria-hidden="true"></div>
+          <div class="reposo">
+            <div class="esfera" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span
+              ><span></span>
+            </div>
+            <div class="reposo__haz" aria-hidden="true"></div>
+            <h2 class="reposo__titulo">Selecciona un jugador</h2>
+            <p class="reposo__texto">
+              Elige a cualquier jugador de la plantilla para proyectar su ficha, sus estadísticas y
+              su vídeo.
+            </p>
+            <p class="reposo__pista mono">
+              PROYECTOR EN ESPERA · {{ totalJugadores }} PERFILES CARGADOS
+            </p>
+          </div>
+        </ng-template>
+      </section>
+    </div>
   </div>
 </main>
 
-<footer class="text-center text-body-secondary small py-4">
-  EQUIPO BASKET · Producto 1 · Proyecto académico
+<footer class="pie">
+  <span class="pie__producto">Producto 1. [FrontEnd mediante Angular]</span>
+  <span class="pie__sep" aria-hidden="true"></span>
+  <span class="pie__equipo">Front Stack Attack</span>
+  <span class="pie__sep" aria-hidden="true"></span>
+  <span class="pie__app">EQUIPO BASKET</span>
 </footer>

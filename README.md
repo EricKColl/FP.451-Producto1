@@ -15,8 +15,11 @@ Aplicación de una sola página (SPA) hecha con **Angular 22** y **Bootstrap 5.3
 
 - **Proyecto funcionando (StackBlitz):** https://stackblitz.com/github/EricKColl/FP.451-Producto1/tree/main
   Compila el proyecto en el navegador a partir de la rama `main` (siempre la última versión). No necesita cuenta; la primera carga tarda 1-2 minutos.
-- Trello: _pendiente_
-- Figma (mockup): _pendiente_
+- **Planificación (Trello):** https://trello.com/b/NjFDvrUe/fp451-p-des-front-end-con-frameworks-avanz-en-ent-m%C3%B3v
+  Tareas con responsable, estimación en horas, fecha límite y checklist. Acceso para el equipo y el consultor.
+- **Diseño (Figma, solo lectura):**
+  - Mockup inicial (v1): https://www.figma.com/design/XtkbScgwVmwlDfgapRlTqH/EQUIPO-BASKET-%E2%80%93-Mockup
+  - Rediseño final (v2), con wireframe, mockup navegable y guía de estilo: https://www.figma.com/design/R25EESVjPwe5I7SFRQWKsh/EQUIPO-BASKET-%E2%80%93-Mockup-definitivo
 
 ## Ramas
 
@@ -46,10 +49,10 @@ Se abre en http://localhost:4200.
 
 ## Tecnologías
 
-- Angular 22 (componentes standalone, `*ngFor`, `*ngIf`, `@Input`, `@Output`, pipe propio)
-- Bootstrap 5.3.8 + Bootstrap Icons
-- Tipografías Oswald e Inter (Google Fonts)
+- Angular 22 (componentes standalone, `*ngFor`, `*ngIf`, `@Input`, `@Output`, proyección con `<ng-content>`, pipe propio)
+- Bootstrap 5.3.8 en modo oscuro (rejilla, formularios, pestañas y utilidades) + Bootstrap Icons
+- Tipografías Chakra Petch, Inter y JetBrains Mono (Google Fonts)
 
 ## Créditos
 
-Las fotografías de los jugadores proceden de Wikimedia Commons. Sus autores y licencias están en [`public/assets/img/jugadores/creditos.html`](public/assets/img/jugadores/creditos.html), que también se abre desde el enlace "Créditos de fotografías" del listado.
+Las fotografías de los jugadores proceden de Wikimedia Commons. Sus autores y licencias se consultan en la ventana «Créditos de fotografías» que se abre desde el listado; los datos están en [`src/app/data/creditos.data.ts`](src/app/data/creditos.data.ts).
